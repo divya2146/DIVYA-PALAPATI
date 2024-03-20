@@ -8,33 +8,6 @@ from pymongo.server_api import ServerApi
 api_key="AIzaSyAlX5YpUosSqgdN1YbsKPtU0aB3cROh0_4" #Can generate from Google API
 youtube=build('youtube',"v3",developerKey=api_key)
 
-
-# MySQL connection
-#!pip install pymysql
-import pymysql
-import mysql.connector
-from sqlalchemy import create_engine
-
-# Establish a connection to the MySQL database using mysql.connector
-mydb = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="12345"  # Use the correct password here
-)
-print(mydb)
-cursor_mysql = mydb.cursor(buffered=True)
-
-# Define the connection string to your MySQL database for SQLAlchemy
-#connection_string = "mysql+pymysql://root@localhost/youtube" #db=youtube
-
-# Create an engine object
-#Engine = create_engine(connection_string)
-
-
-# Creating an engine to connect to the MySQL database
-Engine = create_engine("mysql+pymysql://root@localhost/youtube")
-
-
 #Primary Program
 def youtubedetails(channelid):
     c=channelstats(youtube,channelid)
@@ -344,7 +317,7 @@ add_selectbox = st.sidebar.selectbox(
 if(add_selectbox=="Home"):
     with st.container():        
         st.header("YouTube Data Harvesting and Warehousing using SQL, MongoDB and Streamlit")
-#        st.image(Image.open(r"C:\Users\Admin\Desktop\Project\Youtube\logo2.jpg"),width=500)
+#        st.image(Image.open(r"D:\DS\Capstone projects\images\download.png"),width=500)
         st.subheader("A simple project helps in retrieving data from the YouTube API, \
              storing it in a MongoDB data lake, migrating it to a SQL data warehouse, \
              querying the data warehouse with SQL, and displaying the data in the Streamlit app.")
@@ -357,7 +330,7 @@ elif(add_selectbox=="Channel Data Scraping"):
         st.warning("{} is the viewcount for the particular Youtube Channel".format(s["Channelstats"][0]["channelviews"]))
         st.error("This channel has {} videos.".format(s["Channelstats"][0]["channel_video_count"]))
         st.success("This Channel has {} Subscribers".format(s["Channelstats"][0]["channel_subscribers_count"]))
-        st.subheader("Click OKAY you want to move the entire data to MongoDB?")
+        st.button("Click OKAY you want to move the entire data to MongoDB?")
         mongodb(s)
         st.info("Data Also was moved to MongoDB Successfully")
 elif(add_selectbox=="Migrate to SQL"):
